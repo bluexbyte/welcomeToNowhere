@@ -29,6 +29,34 @@
       </div>
     </div>
   </div>
+  <iframe id="iframe-container" src="https://events.humanitix.com/welcome-to-nowhere-2024/tickets?w=true&p=%23353337" width="100%" height="600px" frameborder="0"></iframe>
+    <script>
+        var humanitix = {
+            findPos: function(obj) {
+                var curtop = 0;
+                if (obj.offsetParent) {
+                do {
+                    curtop += obj.offsetTop;
+                } while ((obj = obj.offsetParent));
+                return [curtop];
+                }
+            }
+        };
+        window.addEventListener('message', function (e) {
+            if (e.origin !== "https://events.humanitix.com"){
+                return;
+            }
+            var messageData = e.data;
+            var iframeEl = document.getElementById('iframe-container');
+            if (iframeEl && messageData && !isNaN(messageData.scrollHeight)){
+                iframeEl.style.height = messageData.scrollHeight + 'px';
+            }
+            if (iframeEl && messageData && messageData.pageChange) {
+              window.scroll(0, humanitix.findPos(iframeEl));
+          }
+
+        }, false);
+    </script>
   <div class="lineup">
     <h3>Lineup</h3>
     <div class="gallery-w2n-container">
